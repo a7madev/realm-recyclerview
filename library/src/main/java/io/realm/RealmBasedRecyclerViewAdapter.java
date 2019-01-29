@@ -110,6 +110,7 @@ public abstract class RealmBasedRecyclerViewAdapter
         this(
                 context,
                 realmResults,
+                primaryKey,
                 automaticUpdate,
                 animateResults,
                 false,
@@ -125,7 +126,6 @@ public abstract class RealmBasedRecyclerViewAdapter
             boolean automaticUpdate,
             boolean animateResults) {
         this(context, realmResults, primaryKey, automaticUpdate, animateResults, false, null);
-        this.primaryKey = primaryKey;
     }
 
     public RealmBasedRecyclerViewAdapter(
@@ -139,17 +139,18 @@ public abstract class RealmBasedRecyclerViewAdapter
         this(
                 context,
                 realmResults,
+                primaryKey,
                 automaticUpdate,
                 animateResults,
                 addSectionHeaders,
                 headerColumnName,
                 null);
-        this.primaryKey = primaryKey;
     }
 
     public RealmBasedRecyclerViewAdapter(
             Context context,
             RealmResults<T> realmResults,
+            String primaryKey,
             boolean automaticUpdate,
             boolean animateResults,
             boolean addSectionHeaders,
@@ -165,6 +166,7 @@ public abstract class RealmBasedRecyclerViewAdapter
         this.headerColumnName = headerColumnName;
         this.inflater = LayoutInflater.from(context);
         this.listener = (!automaticUpdate) ? null : getRealmChangeListener();
+        this.primaryKey = primaryKey;
 
         rowWrappers = new ArrayList<>();
 
