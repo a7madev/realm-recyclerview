@@ -149,7 +149,7 @@ public class ToDoActivity extends RealmBaseActivity {
                 RealmResults<TodoItem> realmResults,
                 boolean automaticUpdate,
                 boolean animateResults) {
-            super(context, realmResults, automaticUpdate, animateResults);
+            super(context, realmResults, "id", automaticUpdate, animateResults);
         }
 
         @Override

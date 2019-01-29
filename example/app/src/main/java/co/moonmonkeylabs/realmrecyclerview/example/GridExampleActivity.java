@@ -77,7 +77,7 @@ public class GridExampleActivity extends AppCompatActivity {
                 RealmResults<NYTimesStory> realmResults,
                 boolean automaticUpdate,
                 boolean animateIdType) {
-            super(context, realmResults, automaticUpdate, animateIdType);
+            super(context, realmResults, "url", automaticUpdate, animateIdType);
         }
 
         public class ViewHolder extends RealmViewHolder {

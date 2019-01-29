@@ -82,7 +82,7 @@ public class MainActivity2 extends RealmBaseActivity {
         public CountryRecyclerViewAdapter(
                 Context context,
                 RealmResults<CountryModel> realmResults) {
-            super(context, realmResults, true, true, true, "name");
+            super(context, realmResults, "id", true, true, true, "name");
         }
 
         public class ViewHolder extends RealmViewHolder {

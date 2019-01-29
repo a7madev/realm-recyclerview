@@ -169,7 +169,7 @@ public class MainActivity extends RealmBaseActivity {
                 boolean automaticUpdate,
                 boolean animateIdType,
                 String animateExtraColumnName) {
-            super(context, realmResults, automaticUpdate, animateIdType, animateExtraColumnName);
+            super(context, realmResults, "id", automaticUpdate, animateIdType, animateExtraColumnName);
         }
 
         public class ViewHolder extends RealmViewHolder {
