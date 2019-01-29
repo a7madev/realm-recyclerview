@@ -103,9 +103,9 @@ public abstract class RealmBasedRecyclerViewAdapter
     public RealmBasedRecyclerViewAdapter(
             Context context,
             RealmResults<T> realmResults,
+            String primaryKey,
             boolean automaticUpdate,
             boolean animateResults,
-            String primaryKey,
             String animateExtraColumnName) {
         this(
                 context,
@@ -121,14 +121,17 @@ public abstract class RealmBasedRecyclerViewAdapter
     public RealmBasedRecyclerViewAdapter(
             Context context,
             RealmResults<T> realmResults,
+            String primaryKey,
             boolean automaticUpdate,
             boolean animateResults) {
-        this(context, realmResults, automaticUpdate, animateResults, false, null);
+        this(context, realmResults, primaryKey, automaticUpdate, animateResults, false, null);
+        this.primaryKey = primaryKey;
     }
 
     public RealmBasedRecyclerViewAdapter(
             Context context,
             RealmResults<T> realmResults,
+            String primaryKey,
             boolean automaticUpdate,
             boolean animateResults,
             boolean addSectionHeaders,
@@ -141,6 +144,7 @@ public abstract class RealmBasedRecyclerViewAdapter
                 addSectionHeaders,
                 headerColumnName,
                 null);
+        this.primaryKey = primaryKey;
     }
 
     public RealmBasedRecyclerViewAdapter(
