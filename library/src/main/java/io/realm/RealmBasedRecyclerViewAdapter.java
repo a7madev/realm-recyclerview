@@ -92,6 +92,7 @@ public abstract class RealmBasedRecyclerViewAdapter
     private RealmChangeListener<RealmResults<T>> listener;
     private boolean animateResults;
     private boolean addSectionHeaders;
+    private String primaryKey;
     private String headerColumnName;
 
     private long animatePrimaryColumnIndex;
@@ -104,6 +105,7 @@ public abstract class RealmBasedRecyclerViewAdapter
             RealmResults<T> realmResults,
             boolean automaticUpdate,
             boolean animateResults,
+            String primaryKey,
             String animateExtraColumnName) {
         this(
                 context,
@@ -113,6 +115,7 @@ public abstract class RealmBasedRecyclerViewAdapter
                 false,
                 null,
                 animateExtraColumnName);
+        this.primaryKey = primaryKey;
     }
 
     public RealmBasedRecyclerViewAdapter(
@@ -165,7 +168,7 @@ public abstract class RealmBasedRecyclerViewAdapter
         this.animateResults = (automaticUpdate && animateResults);
         if (animateResults) {
 
-            animatePrimaryColumnIndex = realmResults.getTable().getPrimaryKey();
+            animatePrimaryColumnIndex = realmResults.getTable().getColumnIndex(primaryKey);
             if (animatePrimaryColumnIndex == Table.NO_MATCH) {
                 throw new IllegalStateException(
                         "Animating the results requires a primaryKey.");
@@ -224,7 +227,7 @@ public abstract class RealmBasedRecyclerViewAdapter
     public void onBindHeaderViewHolder(RealmViewHolder holder, int position) {
         String header = rowWrappers.get(position).header;
         final GridSLM.LayoutParams layoutParams =
-            GridSLM.LayoutParams.from(holder.itemView.getLayoutParams());
+                GridSLM.LayoutParams.from(holder.itemView.getLayoutParams());
 
         holder.headerTextView.setText(header);
         if (layoutParams.isHeaderInline()) {
@@ -271,7 +274,7 @@ public abstract class RealmBasedRecyclerViewAdapter
                 // Setup the header
                 if (header != null) {
                     layoutParams.isHeader = true;
-                    onBindHeaderViewHolder(holder,position);
+                    onBindHeaderViewHolder(holder, position);
                 } else {
                     onBindRealmViewHolder((VH) holder, rowWrappers.get(position).realmIndex);
                 }
@@ -508,7 +511,7 @@ public abstract class RealmBasedRecyclerViewAdapter
                         return;
                     }
                     Patch patch = DiffUtils.diff(ids, newIds);
-                    List    <Delta> deltas = patch.getDeltas();
+                    List<Delta> deltas = patch.getDeltas();
                     ids = newIds;
                     if (deltas.isEmpty()) {
                         // Nothing has changed - most likely because the notification was for
@@ -624,7 +627,7 @@ public abstract class RealmBasedRecyclerViewAdapter
 
     /**
      * Called when an item has been dismissed by a swipe.
-     *
+     * <p>
      * Only supported with type linearLayout and thus the realmResults can be accessed directly.
      * If it is extended to LinearLayoutWithHeaders, rowWrappers will have to be used.
      */
